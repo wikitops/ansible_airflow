@@ -1,0 +1,8 @@
+[airflow_webserver]
+10.0.1.81
+
+[postgresql]
+10.0.1.81
+
+[airflow:children]
+airflow_webserver
