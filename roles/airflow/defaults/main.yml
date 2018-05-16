@@ -144,8 +144,8 @@ airflow_smtp_host: smtp.gmail.com
 airflow_smtp_starttls: True
 airflow_smtp_ssl: True
 airflow_smtp_port: 465
-airflow_smtp_mail_from: donotreply@vectaury.io
-airflow_smtp_user: donotreply@vectaury.io
+airflow_smtp_mail_from: donotreply@example.com
+airflow_smtp_user: donotreply@example.com
 airflow_smtp_passwd:
 
 # SCHEDULER
