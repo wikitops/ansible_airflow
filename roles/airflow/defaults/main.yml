@@ -10,7 +10,6 @@ airflow_extra_packages:
   - slack
 
 airflow_required_libs:
-  - python-pip
   - gcc
   - libffi-dev
   - libssl-dev
@@ -20,6 +19,9 @@ airflow_required_libs:
 # Owner
 airflow_user: airflow
 airflow_group: airflow
+
+# SQL Alchemy
+airflow_sqlalchemy_version: 1.1.17
 
 # UI User
 airflow_login:
@@ -72,10 +74,11 @@ airflow_s3_log_folder: # DEPRECATED
 # DB
 postgres_init_db: false
 postgres_version: 9.6
+postgres_host: "{{ groups['postgresql'][0] }}"
 postgres_db_name: airflow
 postgres_role_name: airflow
 postgres_role_password: sPhYPSMuBqrxH9eQ
-airflow_database_conn: postgresql+psycopg2://{{ postgres_role_name }}:{{ postgres_role_password }}@{{ groups['postgresql'][0] }}:5432/{{ postgres_db_name }}
+airflow_database_conn: postgresql+psycopg2://{{ postgres_role_name }}:{{ postgres_role_password }}@{{ postgres_host }}:5432/{{ postgres_db_name }}
 airflow_database_pool_size: 5
 airflow_database_pool_recycle: 2000
 

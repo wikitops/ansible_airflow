@@ -1,12 +1,12 @@
 ---
 
-- name: Create Airflow database on Postgres DB
+- name: AIRFLOW BACKEND | Create Airflow database on Postgres DB
   become: yes
   become_user: postgres
   postgresql_db:
     name: "{{ postgres_db_name }}"
 
-- name: Create Airflow role on Postgres DB
+- name: AIRFLOW BACKEND | Create Airflow role on Postgres DB
   become: yes
   become_user: postgres
   postgresql_user:
@@ -16,7 +16,7 @@
     encrypted: yes
     priv: CONNECT
 
-- name: Set default Airflow privileges
+- name: AIRFLOW BACKEND | Set default Airflow privileges
   become: yes
   become_user: postgres
   postgresql_privs:
@@ -26,14 +26,14 @@
     type: database
     roles: "{{ postgres_role_name }}"
 
-- name: "Configure password remote authentication from Airflow hosts"
+- name: AIRFLOW BACKEND | Configure password remote authentication from Airflow hosts
   lineinfile:
     dest: /etc/postgresql/{{ postgres_version }}/main/pg_hba.conf
     insertafter: "# IPv4 local connections:"
     line: 'host {{ postgres_db_name }} {{ postgres_role_name }} {{ item }}/32 md5'
   with_inventory_hostnames: airflow
 
-- name: Ensure postgresql is restarted
+- name: AIRFLOW BACKEND | Ensure postgresql is restarted
   systemd:
     name: postgresql
     state: restarted

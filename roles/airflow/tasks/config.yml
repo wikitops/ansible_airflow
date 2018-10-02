@@ -1,12 +1,12 @@
 ---
 
-- name: Check if configuration file exists
+- name: AIRFLOW CONFIG | Check if configuration file exists
   stat:
     path: /etc/airflow/airflow.cfg
   register: airflow_config
   changed_when: False
 
-- name: Create Airflow directories structure
+- name: AIRFLOW CONFIG | Create Airflow directories structure
   file:
     path: "{{ item }}"
     state: directory
@@ -18,7 +18,7 @@
     - "{{ airflow_dags_folder }}"
     - "{{ airflow_plugins_folder }}"
 
-- name: Configure logrotate
+- name: AIRFLOW CONFIG | Configure logrotate
   template:
     src: "etc/logrotate.d/airflow-{{ item }}.j2"
     dest: "/etc/logrotate.d/airflow-{{ item }}"
@@ -29,7 +29,7 @@
     - "webserver"
     - "scheduler"
 
-- name: Deploy Airflow config file
+- name: AIRFLOW CONFIG | Deploy Airflow config file
   template:
     src: "etc/airflow/airflow.cfg.j2"
     dest: "{{ airflow_home }}/airflow.cfg"
@@ -39,7 +39,7 @@
   notify: Restart {{ item }}
   with_items: "{{ airflow_services }}"
 
-- name: Deploy environment file
+- name: AIRFLOW CONFIG | Deploy environment file
   template:
     src: "etc/default/airflow.j2"
     dest: "/etc/default/airflow"
@@ -47,13 +47,13 @@
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
-- name: Initialize Airflow database
+- name: AIRFLOW CONFIG | Initialize Airflow database
   command: /usr/local/bin/airflow initdb
   become: true
   become_user: "{{ airflow_user }}"
   when: not airflow_config.stat.exists and postgres_init_db
 
-- name: Upgrade Airflow database
+- name: AIRFLOW CONFIG | Upgrade Airflow database
   command: /usr/local/bin/airflow upgradedb
   become: true
   become_user: "{{ airflow_user }}"
