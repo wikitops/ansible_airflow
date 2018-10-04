@@ -64,7 +64,7 @@ To deploy the Airflow instance, you just have to run the Ansible playbook airflo
 $ ansible-playbook airflow.yml
 ```
 
-If all run like it is expected, you should access Airflow Web interface : http://10.0.1.81:8080/
+If everything run as expected, you should access Airflow Web interface : http://10.0.1.81:8080/
 
 #### Destroy
 
