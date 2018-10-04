@@ -1,4 +1,5 @@
 # Ansible : Playbook Airflow
+
 The aim of this project is to deploy a simple Airflow instance on Vagrant with a Postgresql backend.
 
 ## Getting Started
@@ -67,7 +68,7 @@ If all run like it is expected, you should access Airflow Web interface : http:/
 
 #### Destroy
 
-To destroy on what Vagrant has created, just run this command :
+To destroy the Vagrant resources created, just run this command :
 
 ```bash
 $ vagrant destroy
